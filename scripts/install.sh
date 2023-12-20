@@ -52,7 +52,7 @@ case "$PROCESSOR" in
         ;;
 esac
  
-RELEASE_URL="https://github.com/opensolmap/solmap/releases"
+RELEASE_URL="${SOLMAP_REPO_URL:-https://github.com/opensolmap/solmap/releases}"
 RELEASE="latest"
 BIN="solmap"
 VERSION="ubuntu-latest"
