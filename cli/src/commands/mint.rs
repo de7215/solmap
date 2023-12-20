@@ -1,3 +1,5 @@
+use std::env;
+
 use std::path::PathBuf;
 
 use anyhow::Result;
@@ -32,6 +34,18 @@ pub fn mint(args: MintArgs) -> Result<()> {
         ));
     }
 
+    if args.boost {
+        let priority_fee_rate = env::var("PRIORITY_FEE_RATE")
+            .unwrap_or_else(|_| "25000".to_string())
+            .parse::<u64>()
+            .expect("Invalid PRIORITY_FEE_RATE value");
+    
+        instructions.push(ComputeBudgetInstruction::set_compute_unit_price(
+            priority_fee_rate,
+        ));
+    }
+
+    
     instructions.push(create_mint_solmap_ix(
         config.keypair.pubkey(),
         mint.pubkey(),
