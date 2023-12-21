@@ -29,12 +29,6 @@ pub fn mint(args: MintArgs) -> Result<()> {
     let mut instructions = vec![compute_budget_ix];
 
     if args.boost {
-        instructions.push(ComputeBudgetInstruction::set_compute_unit_price(
-            PRIORITY_FEE_RATE,
-        ));
-    }
-
-    if args.boost {
         let priority_fee_rate = env::var("PRIORITY_FEE_RATE")
             .unwrap_or_else(|_| "25000".to_string())
             .parse::<u64>()
